@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="quocb14005xx.thigiacmaytinh.HocOpenCV.MainActivity">
+
+    <quocb14005xx.thigiacmaytinh.HocOpenCV.SampleJavaCameraView
+        android:id="@+id/camera_view"
+        app:show_fps="true"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:visibility="gone" />
+    <LinearLayout
+        android:paddingTop="180dp"
+        android:layout_gravity="right|center_vertical"
+        android:rotation="270"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <Button
+            android:drawableLeft="@drawable/ic_camera"
+            android:text="Chụp"
+            android:onClick="TakePicture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:drawableLeft="@drawable/ic_camera_front_black_24dp"
+            android:text="ĐỔI"
+            android:onClick="ThayDoiMayAnh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:drawableLeft="@drawable/ic_camera_record"
+            android:onClick="QuayPhim"
+            android:text="Quay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/imgtest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</FrameLayout>
