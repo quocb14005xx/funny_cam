@@ -1,10 +1,9 @@
-package quocb14005xx.thigiacmaytinh.HocOpenCV;
+package quocb14005xx.thigiacmaytinh.HocOpenCV.activity;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -39,6 +38,10 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
+
+import quocb14005xx.thigiacmaytinh.HocOpenCV.R;
+import quocb14005xx.thigiacmaytinh.HocOpenCV.view.SampleJavaCameraView;
+import quocb14005xx.thigiacmaytinh.HocOpenCV.object.MyContants;
 
 public class MainActivity extends AppCompatActivity implements CameraBridgeViewBase.CvCameraViewListener2, View.OnTouchListener {
 

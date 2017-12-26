@@ -1,4 +1,4 @@
-package quocb14005xx.thigiacmaytinh.HocOpenCV;
+package quocb14005xx.thigiacmaytinh.HocOpenCV.view;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -13,9 +13,7 @@ import org.opencv.android.JavaCameraView;
 import org.opencv.android.Utils;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfRect;
-import org.opencv.core.Point;
 import org.opencv.core.Rect;
-import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
@@ -25,6 +23,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+
+import quocb14005xx.thigiacmaytinh.HocOpenCV.R;
+import quocb14005xx.thigiacmaytinh.HocOpenCV.activity.MainActivity;
+import quocb14005xx.thigiacmaytinh.HocOpenCV.object.MyContants;
 
 public class SampleJavaCameraView extends JavaCameraView {
     private CascadeClassifier mCascade;

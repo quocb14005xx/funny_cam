@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="quocb14005xx.thigiacmaytinh.HocOpenCV.MainActivity">
+    tools:context="quocb14005xx.thigiacmaytinh.HocOpenCV.activity.MainActivity">
 
-    <quocb14005xx.thigiacmaytinh.HocOpenCV.SampleJavaCameraView
+    <quocb14005xx.thigiacmaytinh.HocOpenCV.view.SampleJavaCameraView
         android:id="@+id/camera_view"
         app:show_fps="true"
         android:layout_width="fill_parent"

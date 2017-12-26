@@ -1,4 +1,4 @@
-package quocb14005xx.thigiacmaytinh.HocOpenCV;
+package quocb14005xx.thigiacmaytinh.HocOpenCV.object;
 
 import android.os.Environment;
 import android.util.Log;
