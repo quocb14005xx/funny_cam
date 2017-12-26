@@ -25,12 +25,12 @@ public class MyContants {
     public static final int BACK_CAM=99;
     public static final int FLIP_BACK_CAM=0;
 
-
     public static final int NONE_MODE = 0;
     public static final int GRAY_MODE = 1;
     public static final int CANNY_MODE = 2;
     public static final int BLUR_MODE = 3;
     public static final int DETECT_FACE_MODE=4;
+
 
     public static String RecordVideo_filepath() {
         File vrdir = new File(PATH_VIDEO);

@@ -41,6 +41,18 @@ public class SampleJavaCameraView extends JavaCameraView {
         return mCamera.getParameters().getSupportedColorEffects();
     }
 
+
+    public int chieuRongCamera()
+    {
+        return mCamera.getParameters().getPictureSize().width;
+    }
+
+    public int chieuDaiCamera()
+    {
+        return mCamera.getParameters().getPictureSize().height;
+    }
+
+
     public boolean isEffectSupported() {
         return (mCamera.getParameters().getColorEffect() != null);
     }

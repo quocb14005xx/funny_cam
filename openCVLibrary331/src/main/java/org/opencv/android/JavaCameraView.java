@@ -49,6 +49,7 @@ public class JavaCameraView extends CameraBridgeViewBase implements PreviewCallb
         public int getWidth(Object obj) {
             Camera.Size size = (Camera.Size) obj;
             return size.width;
+
         }
 
         @Override
@@ -60,7 +61,7 @@ public class JavaCameraView extends CameraBridgeViewBase implements PreviewCallb
 
     public JavaCameraView(Context context, int cameraId) {
         super(context, cameraId);
-    }
+     }
 
     public JavaCameraView(Context context, AttributeSet attrs) {
         super(context, attrs);

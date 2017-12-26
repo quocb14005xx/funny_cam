@@ -4,11 +4,13 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.SubMenu;
 import android.view.View;
 import android.view.Window;
@@ -26,6 +28,7 @@ import org.opencv.core.Mat;
 import org.opencv.core.MatOfRect;
 import org.opencv.core.Rect;
 import org.opencv.core.Size;
+import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
 
@@ -37,8 +40,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
-public class MainActivity extends AppCompatActivity implements CameraBridgeViewBase.CvCameraViewListener2 {
+public class MainActivity extends AppCompatActivity implements CameraBridgeViewBase.CvCameraViewListener2, View.OnTouchListener {
 
+    // private  Canvas canvas;
+    public static Bitmap santaHat, santaRia, santaFull, vnFlag, background_detect, background_touched;
     private CascadeClassifier mCascade;
     private MenuItem[] mEffectMenuItems;
     private SubMenu mColorEffectsMenu;
@@ -52,13 +57,10 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     private Mat mIntermediate;
     private Mat mGray;
     private Mat mTemp;
+    private Canvas canvasTouch;
 
 
-    private int mViewMode = 9999;
-
-    // private  Canvas canvas;
-    public static Bitmap santaHat, santaRia, santaFull, background_detect, background_other;
-
+    private int mViewMode;
     private BaseLoaderCallback callback = new BaseLoaderCallback(this) {
         @Override
         public void onManagerConnected(int status) {
@@ -72,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
                         santaHat = BitmapFactory.decodeResource(context.getResources(), R.drawable.noel_hat);
                         santaRia = BitmapFactory.decodeResource(context.getResources(), R.drawable.ria_noel2);
                         santaFull = BitmapFactory.decodeResource(context.getResources(), R.drawable.noel_1k1);
+                        vnFlag = BitmapFactory.decodeResource(context.getResources(), R.drawable.vnflag);
 
                         InputStream inputStream = context.getResources().openRawResource(R.raw.haarcascade_frontalface_alt);
                         File cascadeDir = context.getDir("cascade", Context.MODE_PRIVATE);
@@ -110,7 +113,9 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     };
     private boolean clickChangeCam = true;//bien check click change camera
     private boolean isRecord = false;//mac dinh khong quay
-
+    private float xTouch[]= new float[999], yTouch[]= new float[999] ;
+    private boolean touching;
+    private boolean touchingFirst = true;
 
     //vòng đời & override
     public MainActivity() {
@@ -123,11 +128,14 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+
         setContentView(R.layout.activity_main);
 
         mOpenCvCameraView = findViewById(R.id.camera_view);
         mOpenCvCameraView.setVisibility(View.VISIBLE);
         mOpenCvCameraView.setCvCameraViewListener(this);
+        mOpenCvCameraView.setOnTouchListener(this);
 
 
     }
@@ -194,6 +202,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
             effectPic.add("Xám");
             effectPic.add("Canny");
             effectPic.add("Blur");
+            effectPic.add("Thêm Sticker");
             mPictureEffectsMenu = menu.addSubMenu("Hiệu ứng ảnh");
             mPictureEffectMenuItems = new MenuItem[effectPic.size()];
             for (int i = 0; i < effectPic.size(); i++) {
@@ -201,6 +210,15 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
             }
         }
         return true;
+    }
+
+
+    private void ClearCanvasTouch()//clear những thứ tự vẽ
+    {
+        for (int i=0;i<indexTouch;i++)
+        {
+            xTouch[i]=-999;yTouch[i]=-999;
+        }
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -212,24 +230,52 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
             switch (item.getItemId()) {
                 case 0:
                     mViewMode = MyContants.NONE_MODE;
+                    ClearCanvasTouch();
                     break;//none mode
+                //ở NODE MODE không có touching =false là vì mode này bình thường thì có thể touch để vẽ
                 case 1:
                     mViewMode = MyContants.GRAY_MODE;
+                    touching=false;//touching =false vì khi chỉnh sang các hiệu ứng thì ko tự edit
                     break;//gray mode
                 case 2:
                     mViewMode = MyContants.CANNY_MODE;
+                    touching=false;//touching =false vì khi chỉnh sang các hiệu ứng thì ko tự edit
                     break;//canny mode
                 case 3:
                     mViewMode = MyContants.BLUR_MODE;
+                    touching=false;//touching =false vì khi chỉnh sang các hiệu ứng thì ko tự edit
                     break;//blur mode
+                case 4:
+                    mViewMode = MyContants.DETECT_FACE_MODE;
+                    touching=false;//touching =false vì khi chỉnh sang các hiệu ứng thì ko tự edit
+                    break;//detect face mode
             }
 
         }
         return true;
     }
 
+
+    private int indexTouch=0;
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+            if (mViewMode==MyContants.NONE_MODE)
+            {
+                touching = true;
+            }
+            xTouch[indexTouch] = motionEvent.getX();
+            yTouch[indexTouch] = motionEvent.getY();
+            indexTouch++;
+        }
+        // Log.e(MyContants.TAG,"touch :"+touching+"  -  "+motionEvent.getX()+" -"+motionEvent.getY());
+
+        return true;
+    }
+
     @Override
     public void onCameraViewStarted(int width, int height) {
+        Log.e(MyContants.TAG, "wid-hei:" + mOpenCvCameraView.chieuRongCamera() + "-" + mOpenCvCameraView.chieuDaiCamera());
 
         mRgba = new Mat(height, width, CvType.CV_8UC4);
         mGray = new Mat(height, width, CvType.CV_8UC1);
@@ -243,9 +289,9 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
         background_detect = Bitmap.createBitmap(mRgba.width(), mRgba.height(), Bitmap.Config.RGB_565);
         Utils.matToBitmap(mRgba, background_detect);
 
-/*
+
         //background nay la bitmap cho cac xử ly ko phải là detect
-        background_other = Bitmap.createBitmap(mRgba.width(), mRgba.height(), Bitmap.Config.ARGB_8888);*/
+        background_touched = Bitmap.createBitmap(mRgba.width(), mRgba.height(), Bitmap.Config.RGB_565);
     }
 
     @Override
@@ -312,49 +358,21 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
                 break;
         }
 
-        ///////////////////////flip
+        if (touching)//run khi đã chạm và phải chế độ NONE không bật bất kì hiệu ứng nào
+        {
+            Utils.matToBitmap(mRgba, background_detect);
+            canvasTouch = new Canvas(background_detect);
+            for (int i=0;i<indexTouch;i++)
+            {
+                canvasTouch.drawBitmap(vnFlag, xTouch[i], yTouch[i], null);
+            }
+            Utils.bitmapToMat(background_detect, mRgba);
+        }
+
+        ///////////////////////với camera trước thì phải lật ma trận ảnh lại
         if (clickChangeCam == false) {
             Core.flip(mRgba, mRgba, 1);
         }
-        ///////////////////////record
-//        if (isRecord)
-//        {
-//            if (mVideoWriter == null)
-//            {
-//                //'P','I','M','1'
-//                // 'M','P','E','G'
-//                // 'M','J','P','G'
-//                mVideoWriter = new VideoWriter(MyContants.RecordVideo_filepath()
-//                        , VideoWriter.fourcc('M', 'J', 'P', 'G')
-//                        , 25.0D
-//                        , mRgba.size());
-//                mVideoWriter.open(MyContants.RecordVideo_filepath()
-//                        , VideoWriter.fourcc('M', 'J', 'P', 'G')
-//                        , 25.0D
-//                        , mRgba.size());
-//            }
-//
-//            if (!mVideoWriter.isOpened())
-//            {
-//                mVideoWriter.open(MyContants.RecordVideo_filepath()
-//                        , VideoWriter.fourcc('M', 'J', 'P', 'G')
-//                        , 25.0D
-//                        , mRgba.size());
-//            }
-//            mVideoWriter.write(mRgba);
-//            Log.e(MyContants.TAG,mRgba.toString());
-//        }
-//        else
-//        {
-//            if (mVideoWriter!=null)
-//            {
-//                mVideoWriter.release();
-//            }
-//        }
-
-
-        //ket qua tra ve
-
         return mRgba;
     }
 
@@ -362,11 +380,18 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     /// button onclick
     public void TakePicture(View view) {
         String fileName = MyContants.RecordHinhAnh_filepath();
-        if (clickChangeCam == false)//như describe ở dưới false là ở trạng thái cam front nên deg =-90
+        if (!touching)//nếu là xử lý chạm thì chụp vs phương thức opencv và ngược lại là chụp bởi onTakepicture của thiết bị
         {
-            mOpenCvCameraView.takePicture(fileName, -90, mViewMode);
-        } else {
-            mOpenCvCameraView.takePicture(fileName, 90, mViewMode);
+            if (clickChangeCam == false)//như describe ở dưới false là ở trạng thái cam front nên deg =-90
+            {
+                mOpenCvCameraView.takePicture(fileName, -90, mViewMode);
+            } else {
+                mOpenCvCameraView.takePicture(fileName, 90, mViewMode);
+            }
+        }
+        else {
+            Imgproc.cvtColor(mRgba, mRgba, Imgproc.COLOR_RGBA2BGR, 4);
+            Imgcodecs.imwrite(fileName, mRgba);
         }
         Toast.makeText(this, "Chụp!", Toast.LENGTH_SHORT).show();
     }
@@ -390,32 +415,13 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
         mOpenCvCameraView.enableView();
     }
 
-    private void SaveImageByMatOpenCV() {
-
-        try {
-            FileOutputStream fileOutputStream = new FileOutputStream(MyContants.RecordHinhAnh_filepath());
-            if (mViewMode == MyContants.DETECT_FACE_MODE) {//save với backgroud của detect
-                background_detect.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream);
-                background_detect.recycle();
-            } else {//save với back ground các xử lý khác
-                background_other.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream);
-                background_other.recycle();
-            }
-            fileOutputStream.flush();
-            fileOutputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public void QuayPhim(View view) {
-        mViewMode = MyContants.DETECT_FACE_MODE;
+        Toast.makeText(this, "Chưa phát triễn!", Toast.LENGTH_SHORT).show();
     }
+
 
     ///!button onclick
 
 
-    ///giai thuat
-
 }
-//tui la huynh bao quoc
