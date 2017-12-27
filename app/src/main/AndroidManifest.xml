@@ -41,15 +41,23 @@
             android:name=".activity.MainActivity"
             android:configChanges="keyboardHidden|orientation"
             android:excludeFromRecents="false"
-            android:screenOrientation="landscape"></activity>
-        <activity android:name=".activity.Introduce_Activity">
+            android:screenOrientation="landscape"
+            android:theme="@style/AppThemeNoActionbar" />
+        <activity
+            android:name=".activity.Introduce_Activity"
+            android:theme="@style/AppThemeNoActionbar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.DanhSachHinhAnh_Activity"></activity>
+        <activity
+            android:name=".activity.ThuVienAnh_Activity"
+            android:label="Thư viện ảnh của bạn" />
+        <activity android:name=".activity.Main2Activity"
+            android:theme="@style/AppThemeNoActionbar"
+            ></activity>
     </application>
 
 </manifest>

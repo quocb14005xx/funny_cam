@@ -42,7 +42,7 @@ import java.util.ListIterator;
 import quocb14005xx.thigiacmaytinh.HocOpenCV.R;
 import quocb14005xx.thigiacmaytinh.HocOpenCV.view.SampleJavaCameraView;
 import quocb14005xx.thigiacmaytinh.HocOpenCV.object.MyContants;
-
+//MainActivity xử lý ảnh từ camera
 public class MainActivity extends AppCompatActivity implements CameraBridgeViewBase.CvCameraViewListener2, View.OnTouchListener {
 
     // private  Canvas canvas;
@@ -174,9 +174,6 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        finish();
-        moveTaskToBack(true);
-        System.exit(1);
     }
 
     @Override

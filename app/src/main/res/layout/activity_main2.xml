@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="quocb14005xx.thigiacmaytinh.HocOpenCV.activity.Main2Activity">
+
+    <ImageView
+        android:id="@+id/imageShow"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.7" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.3">
+
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <TextView
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:text="STICKER ->"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/value50" />
+            <ImageView
+                android:id="@+id/sticker1"
+                android:layout_width="@dimen/value50"
+                android:layout_height="@dimen/value50"
+                android:background="@drawable/fullface_noel2" />
+
+            <ImageButton
+                android:layout_width="@dimen/value50"
+                android:layout_height="@dimen/value50"
+                android:layout_margin="@dimen/value1"
+                android:background="@drawable/noel_hat" />
+
+            <ImageButton
+                android:layout_width="@dimen/value50"
+                android:layout_height="@dimen/value50"
+                android:layout_margin="@dimen/value1"
+                android:background="@drawable/ria_noel2" />
+
+            <ImageButton
+                android:layout_width="@dimen/value50"
+                android:layout_height="@dimen/value50"
+                android:layout_margin="@dimen/value1"
+                android:background="@drawable/ic_thuvien" />
+
+            <ImageButton
+                android:layout_width="@dimen/value50"
+                android:layout_height="@dimen/value50"
+                android:layout_margin="@dimen/value1"
+                android:background="@drawable/vnflag" />
+
+            <ImageButton
+                android:layout_width="@dimen/value50"
+                android:layout_height="@dimen/value50"
+                android:layout_margin="@dimen/value1"
+                android:background="@drawable/icon_app" />
+            <ImageButton
+                android:layout_width="@dimen/value50"
+                android:layout_height="@dimen/value50"
+                android:layout_margin="@dimen/value1"
+                android:background="@drawable/ic_thuvien" />
+
+            <ImageButton
+                android:layout_width="@dimen/value50"
+                android:layout_height="@dimen/value50"
+                android:layout_margin="@dimen/value1"
+                android:background="@drawable/vnflag" />
+
+            <ImageButton
+                android:layout_width="@dimen/value50"
+                android:layout_height="@dimen/value50"
+                android:layout_margin="@dimen/value1"
+                android:background="@drawable/icon_app" />
+        </LinearLayout>
+    </HorizontalScrollView>
+</LinearLayout>

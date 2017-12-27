@@ -4,6 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="quocb14005xx.thigiacmaytinh.HocOpenCV.activity.DanhSachHinhAnh_Activity">
-
+    tools:context="quocb14005xx.thigiacmaytinh.HocOpenCV.activity.ThuVienAnh_Activity">
+    <GridView
+        android:id="@+id/gridview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:columnWidth="@dimen/value100"
+        android:numColumns="1"
+        android:stretchMode="columnWidth" />
 </android.support.constraint.ConstraintLayout>
