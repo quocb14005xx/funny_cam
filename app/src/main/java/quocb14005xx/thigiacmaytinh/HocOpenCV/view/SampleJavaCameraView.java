@@ -25,6 +25,7 @@ import java.io.InputStream;
 import java.util.List;
 
 import quocb14005xx.thigiacmaytinh.HocOpenCV.R;
+import quocb14005xx.thigiacmaytinh.HocOpenCV.activity.Introduce_Activity;
 import quocb14005xx.thigiacmaytinh.HocOpenCV.activity.MainActivity;
 import quocb14005xx.thigiacmaytinh.HocOpenCV.object.MyContants;
 
@@ -69,8 +70,8 @@ public class SampleJavaCameraView extends JavaCameraView {
         mCamera.setParameters(params);
     }
 
-    //phuong thuc chup anh tu camera opencv,,, (ds1: path save anh ,ds2: goc fix anh, ds3: mode la id cua thuat toan duoig ham XuLyHieuUng)
-    public void takePicture(final String fileName, final int deg, final int mode) {
+    //phuong thuc chup anh tu camera opencv,,, (ds1: path save anh ,ds2: goc fix anh, ds3: mode la id cua thuat toan duoig ham XuLyHieuUng,ds4: stt sticker)
+    public void takePicture(final String fileName, final int deg, final int mode,final int sttSticker) {
         PictureCallback callback = new PictureCallback() {
 
             private String mPictureFileName = fileName;
@@ -78,7 +79,7 @@ public class SampleJavaCameraView extends JavaCameraView {
             @Override
             public void onPictureTaken(byte[] data, Camera camera) {
                 Bitmap picture = BitmapFactory.decodeByteArray(data, 0, data.length);
-                picture = XuLyHieuUng(picture, mode);
+                picture = XuLyHieuUng(picture, mode,sttSticker);
                 try {
                     FileOutputStream out = new FileOutputStream(mPictureFileName);
                     Matrix m = new Matrix();
@@ -98,7 +99,7 @@ public class SampleJavaCameraView extends JavaCameraView {
 
 
     //xu ly cac hieu ung tra ve 1 bitmap (ds1: hinh bitmap dau vao, ds2: int mode cua giai thuat nao hieu ung nao)
-    private Bitmap XuLyHieuUng(Bitmap input, int mode) {
+    private Bitmap XuLyHieuUng(Bitmap input, int mode,int sttSticker) {
         Bitmap output = Bitmap.createBitmap(input, 0, 0, input.getWidth(), input.getHeight());
 
         Mat mRgba = new Mat();
@@ -123,7 +124,7 @@ public class SampleJavaCameraView extends JavaCameraView {
             case MyContants.BLUR_MODE:
                 break;
             case MyContants.DETECT_FACE_MODE:
-                mRgba = FD(mRgba, 1);
+                mRgba = FD(mRgba, sttSticker);
                 break;
         }
         Utils.matToBitmap(mRgba, output);//xử lý với Mat xong trả về bitmap để save lại
@@ -171,15 +172,19 @@ public class SampleJavaCameraView extends JavaCameraView {
                     //Imgproc.rectangle(mGray, facesArray[i].tl(), facesArray[i].br(), new Scalar(255,0,0), 3);
 
                     int temp = 300;
-                    float xHat = (float) (facesArray[i].tl().x) - (temp / 2);
-                    float yHat = (float) (facesArray[i].tl().y) - (temp / 2);
+                    float x = (float) (facesArray[i].tl().x) ;//- (temp / 2);
+                    float y = (float) (facesArray[i].tl().y) ;//- (temp / 2);
 
                     //scale thu nho phong to phu hop face
-                    Bitmap scaleHat = Bitmap.createScaledBitmap(MainActivity.santaFull,
-                            facesArray[i].width + temp,
-                            temp + facesArray[i].height,
+                    Bitmap scaleNewBitmap = Bitmap.createScaledBitmap(Introduce_Activity.danhSachBitmap.get(icon),
+                            facesArray[i].width ,
+                             facesArray[i].height,
                             true);
-                    canvas.drawBitmap(scaleHat, xHat, yHat, null);
+                    canvas.drawBitmap(scaleNewBitmap, x, y, null);
+                    if (icon==5)
+                    {
+                        canvas.drawBitmap(scaleNewBitmap,x,facesArray[i].height+100, null);
+                    }
                 }
                 Utils.bitmapToMat(background_detect, matInput);
             }

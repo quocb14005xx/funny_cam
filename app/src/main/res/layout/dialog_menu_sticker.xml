@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btnSticker1"
+                android:layout_width="@dimen/value100"
+                android:layout_height="@dimen/value100"
+                android:background="@drawable/noel_hat" />
+
+            <ImageButton
+                android:id="@+id/btnSticker2"
+                android:layout_width="@dimen/value100"
+                android:layout_height="@dimen/value100"
+                android:background="@drawable/ria_noel2" />
+
+            <ImageButton
+                android:id="@+id/btnSticker3"
+                android:layout_width="@dimen/value100"
+                android:layout_height="@dimen/value100"
+                android:background="@drawable/noel_1200" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btnSticker4"
+                android:layout_width="@dimen/value100"
+                android:layout_height="@dimen/value100"
+                android:background="@drawable/vnflag" />
+
+            <ImageButton
+                android:id="@+id/btnSticker5"
+                android:layout_width="@dimen/value100"
+                android:layout_height="@dimen/value100"
+                android:background="@drawable/thuglifefix" />
+
+            <ImageButton
+                android:layout_width="@dimen/value100"
+                android:layout_height="@dimen/value100"
+                android:background="@drawable/quoc1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:layout_width="@dimen/value100"
+                android:layout_height="@dimen/value100"
+                android:background="@drawable/quoc2" />
+
+            <ImageButton
+                android:layout_width="@dimen/value100"
+                android:layout_height="@dimen/value100"
+                android:background="@drawable/napcard" />
+
+            <ImageButton
+                android:background="@drawable/ic_thuvien"
+                android:layout_width="@dimen/value100"
+                android:layout_height="@dimen/value100" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:layout_width="@dimen/value100"
+                android:layout_height="@dimen/value100" />
+
+            <ImageButton
+                android:layout_width="@dimen/value100"
+                android:layout_height="@dimen/value100" />
+
+            <ImageButton
+                android:layout_width="@dimen/value100"
+                android:layout_height="@dimen/value100" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:layout_width="@dimen/value100"
+                android:layout_height="@dimen/value100" />
+
+            <ImageButton
+                android:layout_width="@dimen/value100"
+                android:layout_height="@dimen/value100" />
+
+            <ImageButton
+                android:layout_width="@dimen/value100"
+                android:layout_height="@dimen/value100" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</ScrollView>

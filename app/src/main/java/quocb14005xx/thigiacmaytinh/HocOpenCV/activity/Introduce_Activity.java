@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -12,17 +13,26 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import quocb14005xx.thigiacmaytinh.HocOpenCV.R;
 import quocb14005xx.thigiacmaytinh.HocOpenCV.adapter.IntroPager_Adapter;
 
 public class Introduce_Activity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
-    private Bitmap bitmap;
+    public static Bitmap santaHat,thuglife,santaRia,santaFull,vnFlag;
+    public static ArrayList<Bitmap> danhSachBitmap= new ArrayList<>();//list ảnh sticker static load sẵn khi vào app lận về sau chỉ cần gọi lại xử lý
+
+
+
+
     private Intent it;
     private Dialog dialog;
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
     private TextView intro1, intro2, intro3;
     private int REQUEST_CODE = 1234;
+
+
     View.OnClickListener onCLick = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -46,6 +56,22 @@ public class Introduce_Activity extends AppCompatActivity implements ViewPager.O
         intro1 = findViewById(R.id.imgIntro1);
         intro2 = findViewById(R.id.imgIntro2);
         intro3 = findViewById(R.id.imgIntro3);
+
+
+        //vao intro thi load het anh static lan cac activity khac xai
+        santaHat= BitmapFactory.decodeResource(getResources(), R.drawable.noel_hat);
+        santaRia= BitmapFactory.decodeResource(getResources(), R.drawable.ria_noel2);
+        santaFull= BitmapFactory.decodeResource(getResources(), R.drawable.noel_1200);
+        vnFlag= BitmapFactory.decodeResource(getResources(), R.drawable.vnflag);
+        thuglife= BitmapFactory.decodeResource(getResources(), R.drawable.thuglifefix);
+
+
+        danhSachBitmap.add(santaHat);
+        danhSachBitmap.add(santaRia);
+        danhSachBitmap.add(santaFull);
+        danhSachBitmap.add(vnFlag);
+        danhSachBitmap.add(thuglife);
+
     }
 
     @Override
@@ -83,7 +109,7 @@ public class Introduce_Activity extends AppCompatActivity implements ViewPager.O
     public void onPageScrollStateChanged(int state) {
 
     }
-
+    //click vào 1 trong 4 form của app
     public void StartActivityHieuUng(View view) {
         dialog = new Dialog(this);
         dialog.setContentView(R.layout.dialog_load_anh);
@@ -91,11 +117,10 @@ public class Introduce_Activity extends AppCompatActivity implements ViewPager.O
         dialog.show();
         Button from = dialog.findViewById(R.id.btnFromThuVien);
         Button newPic = dialog.findViewById(R.id.btnNewPicture);
-        from.setOnClickListener(onCLick);
-        newPic.setOnClickListener(onCLick);
+        from.setOnClickListener(onCLick);//click nút thư viện
+        newPic.setOnClickListener(onCLick);//click nút video camera effect ảnh mới
 
     }
-
     private void XuLyLoadAnhThuVien() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -113,13 +138,14 @@ public class Introduce_Activity extends AppCompatActivity implements ViewPager.O
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
-
+    //click tính năng nạp card
     public void StartActivityNapCard(View view) {
     }
-
+    //click tính năng ghép khung
     public void StartActivityGhepKhung(View view) {
     }
 
+    //click xem thử viện ảnh của app
     public void StartActivityLibrary(View view) {
         startActivity(new Intent(this, ThuVienAnh_Activity.class));
     }

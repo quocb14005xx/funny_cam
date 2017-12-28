@@ -6,6 +6,45 @@
     android:orientation="vertical"
     tools:context="quocb14005xx.thigiacmaytinh.HocOpenCV.activity.Main2Activity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:onClick="XuLyQuayAnh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_rotate_right_black_24dp" />
+        <ImageButton
+            android:onClick="XuLyReDo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_redo_black_24dp" />
+        <ImageButton
+            android:onClick="XuLyUnDo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_undo_black_24dp" />
+        <ImageButton
+            android:onClick="XuLyCutAnh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_content_cut_black_24dp" />
+        <ImageButton
+            android:onClick="XuLySaveBitmap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_save_black_24dp" />
+        <ImageButton
+            android:onClick="XuLyThayDoiAnhKhac"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add_a_photo_black_24dp" />
+
+
+    </LinearLayout>
+
     <ImageView
         android:id="@+id/imageShow"
         android:layout_width="match_parent"
@@ -15,24 +54,21 @@
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.3">
+        android:layout_weight="0.2">
 
         <LinearLayout
-            android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
+
             <TextView
-                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/value50"
                 android:gravity="center_vertical"
                 android:text="STICKER ->"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/value50" />
-            <ImageView
-                android:id="@+id/sticker1"
-                android:layout_width="@dimen/value50"
-                android:layout_height="@dimen/value50"
-                android:background="@drawable/fullface_noel2" />
+                android:textStyle="bold" />
+
 
             <ImageButton
                 android:layout_width="@dimen/value50"
@@ -46,11 +82,11 @@
                 android:layout_margin="@dimen/value1"
                 android:background="@drawable/ria_noel2" />
 
-            <ImageButton
+            <ImageView
+                android:id="@+id/sticker1"
                 android:layout_width="@dimen/value50"
                 android:layout_height="@dimen/value50"
-                android:layout_margin="@dimen/value1"
-                android:background="@drawable/ic_thuvien" />
+                android:background="@drawable/noel_1200" />
 
             <ImageButton
                 android:layout_width="@dimen/value50"
@@ -62,7 +98,15 @@
                 android:layout_width="@dimen/value50"
                 android:layout_height="@dimen/value50"
                 android:layout_margin="@dimen/value1"
+                android:background="@drawable/ic_thuvien" />
+
+
+            <ImageButton
+                android:layout_width="@dimen/value50"
+                android:layout_height="@dimen/value50"
+                android:layout_margin="@dimen/value1"
                 android:background="@drawable/icon_app" />
+
             <ImageButton
                 android:layout_width="@dimen/value50"
                 android:layout_height="@dimen/value50"
