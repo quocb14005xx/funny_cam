@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
-import android.graphics.RectF;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -25,19 +24,14 @@ import quocb14005xx.thigiacmaytinh.HocOpenCV.object.MyContants;
 
 
 //Main2Activity xử lý với ảnh từ thư viện
-public class Main2Activity extends AppCompatActivity implements View.OnTouchListener {
+public class Main2Activity extends AppCompatActivity implements View.OnTouchListener{
     private Bitmap bitmap_root;//xử lý trên ảnh này
     private ImageView imgSHOW;//show trong view này
 
     private int REQUEST_CODE=1234;
 
 
-    //override zone
-    @Override
-    public boolean onTouch(View view, MotionEvent motionEvent) {
 
-        return true;
-    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
@@ -57,8 +51,6 @@ public class Main2Activity extends AppCompatActivity implements View.OnTouchList
         setContentView(R.layout.activity_main2);
         //load anh goc
         LayAnhTuIntroActivity();
-
-
     }
     //lấy ảnh từ intent bên intro trong thư viện qua đây
     private void LayAnhTuIntroActivity()
@@ -74,12 +66,13 @@ public class Main2Activity extends AppCompatActivity implements View.OnTouchList
 
             stream.close();
             imgSHOW= findViewById(R.id.imageShow);
-            imgSHOW.setOnTouchListener(this);
+
             imgSHOW.setImageBitmap(bitmap_root);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     //click Undo
     public void XuLyUnDo(View view) {
     }
@@ -111,16 +104,23 @@ public class Main2Activity extends AppCompatActivity implements View.OnTouchList
     //click để thay đổi ảnh khác
     public void XuLyThayDoiAnhKhac(View view)
     {
-        XuLyLoadAnhThuVien();
-    }
-    private void XuLyLoadAnhThuVien() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, REQUEST_CODE);
     }
+
     //click cắt ảnh
     public void XuLyCutAnh(View view) {
 
+    }
+    Canvas canvas = new Canvas(bitmap_root);
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        if (view.getId()==R.id.imageShow)
+        {
+
+        }
+        return true;
     }
 }

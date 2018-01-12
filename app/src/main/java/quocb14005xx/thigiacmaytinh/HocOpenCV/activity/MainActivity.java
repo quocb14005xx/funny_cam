@@ -245,6 +245,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
             effectPic.add("Canny");
             effectPic.add("Blur");
             effectPic.add("Thêm Sticker");
+            effectPic.add("Nạp card");
             mPictureEffectsMenu = menu.addSubMenu("Hiệu ứng ảnh");
             mPictureEffectMenuItems = new MenuItem[effectPic.size()];
             for (int i = 0; i < effectPic.size(); i++) {
@@ -291,6 +292,10 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
                     mViewMode = MyContants.DETECT_FACE_MODE;
                     touching = false;//touching =false vì khi chỉnh sang các hiệu ứng thì ko tự edit
                     break;//detect face mode
+                case 5:
+                    mViewMode = MyContants.CARD_MODE;
+                    touching = false;
+                    break;
             }
 
         }
@@ -379,26 +384,29 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
                     if (facesArray.length > 0) {
                         for (int i = 0; i < facesArray.length; i++) {
                             //Imgproc.rectangle(mGray, facesArray[i].tl(), facesArray[i].br(), new Scalar(255,0,0), 3);
-
                             int temp = 300;
+
+
                             float x = (float) (facesArray[i].tl().x);// - (temp / 2);
                             float y = (float) (facesArray[i].tl().y);// - (temp / 2);
 
                             //scale thu nho phong to phu hop face
                             //do bên activity intro là 1 mảng các bit map nên bên đây lấy mảng đó truy xuất theo 1 index 1 icon nhất định
                             Bitmap scaleNewBitmap = Bitmap.createScaledBitmap(Introduce_Activity.danhSachBitmap.get(mIconStt),
-                                    facesArray[i].width ,
+                                    facesArray[i].width,
                                     facesArray[i].height,
                                     true);
                             canvas.drawBitmap(scaleNewBitmap, x, y, null);
-                            if (mIconStt==5)
-                            {
-                                canvas.drawBitmap(scaleNewBitmap,x,facesArray[i].height+100, null);
+                            if (mIconStt == 5) {
+                                canvas.drawBitmap(scaleNewBitmap, x, facesArray[i].height + 100, null);
                             }
                         }
                         Utils.bitmapToMat(background_detect, mRgba);
                     }
                 }
+                break;
+            case MyContants.CARD_MODE:
+
                 break;
         }
 
@@ -427,9 +435,9 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
         {
             if (clickChangeCam == false)//như describe ở dưới false là ở trạng thái cam front nên deg =-90
             {
-                mOpenCvCameraView.takePicture(fileName, -90, mViewMode,mIconStt);
+                mOpenCvCameraView.takePicture(fileName, -90, mViewMode, mIconStt);
             } else {
-                mOpenCvCameraView.takePicture(fileName, 90, mViewMode,mIconStt);
+                mOpenCvCameraView.takePicture(fileName, 90, mViewMode, mIconStt);
             }
         } else {//chup voi cac Mat ma do touch chu ko phai la cua camera
             Imgproc.cvtColor(mRgba, mRgba, Imgproc.COLOR_RGBA2BGR, 4);

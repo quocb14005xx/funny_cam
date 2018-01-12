@@ -34,6 +34,7 @@ public class MyContants {
     public static final int CANNY_MODE = 2;
     public static final int BLUR_MODE = 3;
     public static final int DETECT_FACE_MODE=4;
+    public static final int CARD_MODE =5 ;
 
 
     public static String RecordVideo_filepath() {
@@ -55,11 +56,11 @@ public class MyContants {
     }
 
 
-    public static final int STICKER1=0;
-    public static final int STICKER2=1;
-    public static final int STICKER3=2;
-    public static final int STICKER4=3;
-    public static final int STICKER5=4;
+    public static final int STICKER1=0;//non
+    public static final int STICKER2=1;//ria
+    public static final int STICKER3=2;//full noel
+    public static final int STICKER4=3;//flag viet nam
+    public static final int STICKER5=4;//thuglife
 
 
 }
