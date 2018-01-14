@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
+import org.opencv.features2d.FeatureDetector;
+
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -51,9 +53,7 @@ public class Main2Activity extends AppCompatActivity {
         //load anh goc
         LayAnhTuIntroActivity();
 
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.background_intro);
-         imageView = findViewById(R.id.imageShow);
-        imageView.setImageBitmap(bitmap);
+
 
     }
 
@@ -74,7 +74,6 @@ public class Main2Activity extends AppCompatActivity {
 
             stream.close();
             imageView = findViewById(R.id.imageShow);
-
             imageView.setImageBitmap(bitmap_root);
         } catch (IOException e) {
             e.printStackTrace();
@@ -91,10 +90,12 @@ public class Main2Activity extends AppCompatActivity {
     }
 
     public void XuLyQuayAnh(View view) {
-        Matrix matrix = new Matrix();
-        matrix.postRotate(deg + 90);
-        bitmap_root = Bitmap.createBitmap(bitmap_root, 0, 0, bitmap_root.getWidth(), bitmap_root.getHeight(), matrix, true);
-        imageView.setImageBitmap(bitmap_root);
+        deg=deg+90;
+        imageView.setRotatebitmap(deg);
+        if (deg==360)
+        {
+            deg=0;
+        }
     }
 
     //click save ảnh đã chỉnh sửa
@@ -103,7 +104,7 @@ public class Main2Activity extends AppCompatActivity {
             FileOutputStream outputStream = new FileOutputStream(MyContants.RecordHinhAnh_filepath());
             Bitmap bitmap = imageView.getBitmap();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
-           /* bitmap.recycle();*/ //->crash
+            bitmap.recycle(); //->crash
 
             Toast.makeText(this, "Đã lưu rồi", Toast.LENGTH_SHORT).show();
         } catch (FileNotFoundException e) {
@@ -120,8 +121,17 @@ public class Main2Activity extends AppCompatActivity {
     }
 
     //click cắt ảnh
+    private boolean isCutOk;
     public void XuLyCutAnh(View view) {
-
+        if (!isCutOk)
+        {
+            imageView.setModeCut(true);
+        }
+        else
+        {
+            imageView.cutBitMap();
+        }
+        isCutOk=!isCutOk;
     }
 
 }

@@ -1,5 +1,7 @@
 package quocb14005xx.thigiacmaytinh.HocOpenCV;
 
+import junit.framework.TestCase;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -9,9 +11,12 @@ import static org.junit.Assert.*;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-public class ExampleUnitTest {
-    @Test
-    public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
-    }
+public class ExampleUnitTest extends TestCase {
+
+       public void aaa(){
+           int a=1;
+           int b=2;
+           System.out.println((a>b)?"haha":"hihi");
+       }
+
 }
