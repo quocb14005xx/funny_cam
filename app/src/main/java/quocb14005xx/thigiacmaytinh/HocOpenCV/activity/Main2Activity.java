@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import org.opencv.features2d.FeatureDetector;
@@ -24,10 +27,11 @@ import quocb14005xx.thigiacmaytinh.HocOpenCV.view.MyImageView;
 
 
 //Main2Activity xử lý với ảnh từ thư viện
-public class Main2Activity extends AppCompatActivity {
+public class Main2Activity extends AppCompatActivity implements View.OnClickListener {
     private Bitmap bitmap_root;//xử lý trên ảnh này
     private MyImageView imageView;//show trong view này
-
+    private ImageButton btnCutImage;
+    private Button btnClearCanvas;
     private int REQUEST_CODE = 1234;
     //click Quay ảnh
     private int deg;
@@ -53,8 +57,19 @@ public class Main2Activity extends AppCompatActivity {
         //load anh goc
         LayAnhTuIntroActivity();
 
+        init();
+        events();
+    }
 
+    private void events()
+    {
+        btnCutImage.setOnClickListener(this);
+    }
 
+    private void init()
+    {
+        btnCutImage=findViewById(R.id.btnCutImage);
+        btnClearCanvas=findViewById(R.id.btnClearCanvas);
     }
 
     /**
@@ -122,16 +137,31 @@ public class Main2Activity extends AppCompatActivity {
 
     //click cắt ảnh
     private boolean isCutOk;
-    public void XuLyCutAnh(View view) {
+    public void XuLyCutAnh() {
         if (!isCutOk)
         {
             imageView.setModeCut(true);
+            btnCutImage.setBackgroundColor(Color.RED);
         }
         else
         {
             imageView.cutBitMap();
+            imageView.setModeCut(false);
+            btnCutImage.setBackgroundColor(0);
         }
         isCutOk=!isCutOk;
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId())
+        {
+            case R.id.btnCutImage:
+                XuLyCutAnh();
+                break;
+            case R.id.btnClearCanvas:
+                imageView.clearCanvas();
+                break;
+        }
+    }
 }

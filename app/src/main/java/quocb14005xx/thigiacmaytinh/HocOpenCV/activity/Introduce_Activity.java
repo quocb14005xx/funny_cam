@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -140,9 +141,12 @@ public class Introduce_Activity extends AppCompatActivity implements ViewPager.O
     }
     //click tính năng nạp card
     public void StartActivityNapCard(View view) {
+        Toast.makeText(this, "Đang phát triễn tính năng nạp card", Toast.LENGTH_SHORT).show();
     }
     //click tính năng ghép khung
     public void StartActivityGhepKhung(View view) {
+        Toast.makeText(this, "Đang phát triễn tính năng ghép khung", Toast.LENGTH_SHORT).show();
+
     }
 
     //click xem thử viện ảnh của app
